@@ -29,7 +29,7 @@ from fc_serial import CliSession, find_fc_port
 VOLUME_LABEL = "BETAFLT"
 
 
-# -- flash -----------------------------------------------------------------
+# flash
 
 def flash_info(port=None):
     """Print `flash_info`: sector geometry, total size, and bytes used.
@@ -110,7 +110,7 @@ def mass_storage(port=None):
     print("    Next: python scripts/blackbox.py copy")
 
 
-# -- pulling logs ----------------------------------------------------------
+# pulling logs
 
 def find_volume():
     """Locate the mounted BETAFLT volume on Linux, macOS, or Windows."""

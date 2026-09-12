@@ -32,7 +32,7 @@ except ImportError:
     _np = None
 
 
-# -- loading ---------------------------------------------------------------
+# loading
 
 def load_csv(path):
     """Read a decoded Blackbox CSV into {column: [float, ...]}.
@@ -89,7 +89,7 @@ def sample_rate_hz(columns, default=8000.0):
     return 1_000_000.0 / median if median else default
 
 
-# -- motor balance ---------------------------------------------------------
+# motor balance
 
 def motor_balance(columns, motor_count=4):
     """Per-motor mean eRPM over mean output, plus deviation from the fleet mean.
@@ -136,7 +136,7 @@ def _find(columns, wanted):
     return None
 
 
-# -- gyro noise ------------------------------------------------------------
+# gyro noise
 
 def _fft(values):
     """Iterative radix-2 Cooley-Tukey FFT. Length must be a power of two."""
@@ -227,7 +227,7 @@ def gyro_noise_floor(columns, rate_hz, window=DEFAULT_WINDOW,
     return results
 
 
-# -- reporting -------------------------------------------------------------
+# reporting
 
 def analyze(path, window=DEFAULT_WINDOW):
     """Run both analyses over one decoded CSV."""

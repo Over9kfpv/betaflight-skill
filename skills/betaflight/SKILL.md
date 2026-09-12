@@ -164,6 +164,17 @@ assert fake.commands[-1] == "exit noreboot"
 prompt, permission denied on the serial port, MSP timeouts, the board vanishing
 from the port list, and a full flash that silently records nothing.
 
+## Environment variables
+
+The scripts read two, both optional:
+
+- `BETAFLIGHT_BACKUP_DIR` overrides where `backup_restore.py` writes backups.
+  It defaults to `backups/` in the working directory.
+- `USER` is read on Linux only, to build the `/run/media/$USER/BETAFLT` path
+  where the blackbox drive mounts. It falls back to other mount points.
+
+Neither is required and neither carries a secret.
+
 ## Scripts
 
 | Script | Purpose |

@@ -119,7 +119,7 @@ class FakeFlightController:
         self.dtr = False
         self._out = bytearray()
 
-    # -- factory ----------------------------------------------------------
+    # factory
 
     def as_factory(self):
         """Return a (port, baud, timeout) -> self callable for CliSession."""
@@ -130,7 +130,7 @@ class FakeFlightController:
             return self
         return factory
 
-    # -- serial.Serial surface --------------------------------------------
+    # serial.Serial surface
 
     def write(self, data):
         self.written.append(bytes(data))
@@ -177,7 +177,7 @@ class FakeFlightController:
         self.close()
         return False
 
-    # -- behaviour --------------------------------------------------------
+    # behaviour
 
     def _reply_for(self, command):
         if command in self.error_on:

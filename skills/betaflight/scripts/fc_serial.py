@@ -39,7 +39,7 @@ class CliError(RuntimeError):
     """The flight controller could not enter or complete a CLI session."""
 
 
-# -- port discovery --------------------------------------------------------
+# port discovery
 
 def _is_radio(description):
     lowered = (description or "").lower()
@@ -130,7 +130,7 @@ def find_fc_port(target_port=None, target_serial=None):
     return ports[0].device
 
 
-# -- CLI -------------------------------------------------------------------
+# CLI
 
 def read_until_prompt(ser, timeout=30.0, quiet_for=0.3):
     """Read until a `#` prompt arrives and the line has gone quiet."""
@@ -187,7 +187,7 @@ class CliSession:
         self.sent = []
         self.exited = False
 
-    # -- lifecycle ---------------------------------------------------------
+    # lifecycle
 
     def __enter__(self):
         if self.port is None:
@@ -263,7 +263,7 @@ class CliSession:
                 pass
             self._ser = None
 
-    # -- commands ----------------------------------------------------------
+    # commands
 
     def run(self, command, timeout=60.0):
         """Send one command and return its output, without echo or prompt."""
@@ -293,7 +293,7 @@ class CliSession:
         self.exited = True
         self._log(f"# Sent `{command}`. The flight controller is rebooting.")
 
-    # -- internals ---------------------------------------------------------
+    # internals
 
     @staticmethod
     def _clean(command, raw):
@@ -330,7 +330,7 @@ def run_commands(commands, port=None, save=False, serial_factory=None,
         return fc.run_many(commands)
 
 
-# -- MSP v1 ----------------------------------------------------------------
+# MSP v1
 
 MSP_API_VERSION = 1
 MSP_FC_VARIANT = 2
