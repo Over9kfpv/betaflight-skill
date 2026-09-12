@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+
+# Blackbox recordings and decoded data, and configuration backups. Both are
+# produced next to whatever project the skill is used from.
+logs/
+backups/
+*.bbl
+*.csv
+*.event
+
+venv/
+.venv/
+.DS_Store

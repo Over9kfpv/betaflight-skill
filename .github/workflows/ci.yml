@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Byte-compile every script
+        run: python -m compileall -q skills/betaflight/scripts
+
+      - name: Run the test suite
+        # Runs entirely against the in-memory fake board, so no flight
+        # controller is needed.
+        run: python -m unittest discover -s tests -t . -v
+
+  validate-skill:
+    name: Skill metadata validates
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - name: Validate against the Agent Skills spec
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh skill publish --dry-run
