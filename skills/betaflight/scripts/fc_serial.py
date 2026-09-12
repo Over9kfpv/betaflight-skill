@@ -47,11 +47,22 @@ def _is_radio(description):
 
 
 def describe_ports():
-    """Classify every serial port as a flight controller candidate or not."""
+    """Classify serial ports as flight controller candidates or not.
+
+    Returns (candidates, others, hidden). `hidden` counts the built-in
+    non-USB serial ports, of which a PC can enumerate dozens. None of them can
+    be a flight controller, so they are counted rather than listed.
+    """
     candidates = []
     others = []
+    hidden = 0
 
     for port in serial.tools.list_ports.comports():
+        if port.vid is None:
+            # No USB vendor ID means a motherboard UART, not a plugged device.
+            hidden += 1
+            continue
+
         description = port.description or ""
         notes = []
         is_fc = False
@@ -85,7 +96,7 @@ def describe_ports():
         }
         (candidates if is_fc else others).append(info)
 
-    return candidates, others
+    return candidates, others, hidden
 
 
 def find_fc_port(target_port=None, target_serial=None):
@@ -112,7 +123,7 @@ def find_fc_port(target_port=None, target_serial=None):
         raise SystemExit(
             f"No flight controller with USB serial number '{target_serial}'.")
 
-    candidates, _ = describe_ports()
+    candidates, _, _ = describe_ports()
     if candidates:
         return candidates[0]["device"]
 

@@ -25,7 +25,7 @@ OPTIONAL_TOOLS = {
 
 
 def report_ports():
-    candidates, others = describe_ports()
+    candidates, others, hidden = describe_ports()
 
     print("=" * 60)
     print(f"  Betaflight connection check -- {platform.system()} "
@@ -50,10 +50,14 @@ def report_ports():
         print()
 
     if others:
-        print(f"Other serial devices ({len(others)}):")
+        print(f"Other USB serial devices ({len(others)}):")
         for info in others:
             print(f"  - {info['device']} ({info['description']}) -- {info['notes']}")
         print()
+
+    if hidden:
+        print(f"Skipped {hidden} built-in serial port(s) with no USB device "
+              "attached.\n")
 
     print("Optional external tools:")
     for name, purpose in OPTIONAL_TOOLS.items():
