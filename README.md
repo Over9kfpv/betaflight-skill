@@ -13,7 +13,7 @@ build step. Works on Windows, macOS and Linux.
 With the GitHub CLI, version 2.90 or later:
 
 ```bash
-gh skill install HansF/betaflight-skill betaflight --agent claude-code
+gh skill install Over9kfpv/betaflight-skill betaflight --agent claude-code
 ```
 
 Other hosts use the same command with a different `--agent`: `github-copilot`,
@@ -23,7 +23,7 @@ once for every project instead of only the current repository.
 Pin a version for reproducibility:
 
 ```bash
-gh skill install HansF/betaflight-skill betaflight --pin v1.0.0
+gh skill install Over9kfpv/betaflight-skill betaflight --pin v1.0.0
 ```
 
 Then install the runtime dependency:
